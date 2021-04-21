@@ -1,31 +1,41 @@
 import React from 'react';
-import { Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, Image, TouchableOpacity, SafeAreaView, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 import colors from '../../styles/colors';
 import wateringImg from '../../assets/welcome.png';
+import fonts from '../../styles/fonts';
 
 export default function Welcome() {
+   const navigation = useNavigation();
+
+   function handleStart() {
+      navigation.navigate('UserIdentification');
+   }
+
    return(
       <SafeAreaView style={styles.container}>
-         <Text style={styles.title}>
-            Gerencie{'\n'} suas plantas{'\n'} de forma fácil
+         <View style={styles.wrapper}>
+            <Text style={styles.title}>
+               Gerencie{'\n'} suas plantas de {'\n'} forma fácil
+               </Text>
+
+            <Image source={wateringImg} style={styles.image} />
+
+            <Text style={styles.description}>
+               Não esqueça mais de regar suas plantas. Nõs cuidamos de lembrar você
+               sempre que precisar.
             </Text>
 
-         <Image source={wateringImg} style={styles.image}/>
-
-         <Text style={styles.description}>
-            Não esqueça mais de regar suas plantas. Nõs cuidamos de lembrar você
-            sempre que precisar.
-         </Text>
-
-         <TouchableOpacity 
-            style={styles.button}
-            activeOpacity={0.6}
-            onPress={() => {}}
-         >
-            <Text style={styles.buttonText}>
-               {'>'}
-            </Text>
-         </TouchableOpacity>
+            <TouchableOpacity 
+               style={styles.button}
+               activeOpacity={0.6}
+               onPress={handleStart}
+            >
+               <Feather name="chevron-right" size={22} color="#fff"/>
+            </TouchableOpacity>
+         </View>
       </SafeAreaView>
    );
 }
@@ -33,24 +43,29 @@ export default function Welcome() {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
+   },
+   wrapper: {
+      flex: 1,
       alignItems: 'center',
-      justifyContent: 'space-between'
+      justifyContent: 'space-around',
+      paddingHorizontal: 20
    },
    title: {
-      fontSize: 32,
+      fontSize: 28,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.heading,
       marginTop: 48,
+      fontFamily: fonts.heading,
+      lineHeight: 34
    },
-   image: {
-
-   },
+   image: {},
    description: {
       fontSize: 18,
       paddingHorizontal: 20,
       color: colors.heading,
-      textAlign: 'center'
+      textAlign: 'center',
+      fontFamily: fonts.text
    },
    button: {
       backgroundColor: colors.green,

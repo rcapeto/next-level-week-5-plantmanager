@@ -1,12 +1,24 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import Welcome from './src/pages/Welcome';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Jost_400Regular, Jost_600SemiBold } from '@expo-google-fonts/jost';
+
+import Routes from './src/routes';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold
+  });
+
+  if(!fontsLoaded) return <AppLoading />
+
   return (
     <>
       <StatusBar />
-      <Welcome />
+      <Routes />
     </>
   );
 }
