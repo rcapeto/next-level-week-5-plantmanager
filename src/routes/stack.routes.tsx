@@ -7,6 +7,9 @@ import Welcome from '../pages/Welcome';
 import UserIdentification from '../pages/UserIdentification';
 import Confirmation from '../pages/Confirmation';
 import SelectPlant from '../pages/PlantSelect';
+import Plant from '../pages/Plant';
+import MyPlants from '../pages/MyPlants';
+import TabRoutes from './tab.routes';
 
 const { Navigator, Screen } = createStackNavigator();
  
@@ -15,7 +18,7 @@ export function StackRoutes() {
       <Navigator screenOptions={{
          headerShown: false,
          cardStyle: {
-            backgroundColor: colors.white,
+            backgroundColor: colors.shape,
          }
       }}>
          <Screen 
@@ -30,9 +33,23 @@ export function StackRoutes() {
             name="Confirmation"
             component={Confirmation}
          />
+
+         <Screen 
+            name="TabRoutes"
+            component={TabRoutes}
+         />
+
          <Screen 
             name="SelectPlant"
             component={SelectPlant}
+         />
+         <Screen 
+            name="Plant"
+            component={Plant}
+         />
+         <Screen 
+            name="MyPlants"
+            component={MyPlants}
          />
       </Navigator>
    );

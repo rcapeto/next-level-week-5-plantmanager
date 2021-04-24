@@ -2,15 +2,19 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
+import { useUser } from '../../context/UserContext';
+
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 export default function Header() {
+   const { userName } = useUser();
+
    return(
       <View style={styles.container}>
          <View>
             <Text style={styles.greeting}>Olá,</Text>
-            <Text style={styles.userName}>Raphael</Text>
+            <Text style={styles.userName}>{userName}</Text>
          </View>
 
          <Image 

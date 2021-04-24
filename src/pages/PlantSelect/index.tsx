@@ -1,34 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import api from '../../services/api';
+import { Enviroment, Plants } from '../../interface';
 
 import Header from '../../components/Header';
 import EnviromentButton from '../../components/EnviromentButton';
 import PlantCardPrimary from '../../components/PlantCardPrimary';
 import Loading from '../../components/Loading';
 
-interface Enviroment {
-   key: string;
-   title: string;
-}
-
-interface Plants {
-   id: number;
-   name: string;
-   about: string;
-   water_tips: string;
-   photo: string;
-   environments: string[];
-   frequency: {
-      times: number;
-      repeat_every: string;
-   }
-}
 
 export default function SelectPlant() {
+   const navigation = useNavigation();
+
    const [enviroments, setEnviroments] = useState<Enviroment[]>([]);
    const [plants, setPlants] = useState<Plants[]>([]);
    const [filteredPlants, setFilteredPlants] = useState<Plants[]>([]);
@@ -92,6 +79,10 @@ export default function SelectPlant() {
       setRefreshing(false);
    }
 
+   function navigateToDetail(plant: Plants) {
+      navigation.navigate('Plant', { plant });
+   }
+
    useEffect(() => {
       getEnviroments();
    }, []);
@@ -114,6 +105,7 @@ export default function SelectPlant() {
          <View>
             <FlatList 
                data={enviroments}
+               keyExtractor={item => item.key}
                renderItem={({ item }) => 
                   <EnviromentButton 
                      title={item.title} 
@@ -121,7 +113,6 @@ export default function SelectPlant() {
                      onPress={() => handleEnviromentSelected(item.key)}
                   />
                }
-               keyExtractor={item => item.key}
                horizontal
                showsHorizontalScrollIndicator={false}
                contentContainerStyle={styles.enviromentList}
@@ -136,11 +127,12 @@ export default function SelectPlant() {
                renderItem={({ item }) => 
                   <PlantCardPrimary 
                      data={{ name: item.name, photo: item.photo }}
+                     onPress={() => navigateToDetail(item)}
                   />
                }
                showsVerticalScrollIndicator={false}
                numColumns={2}
-               contentContainerStyle={{ paddingBottom: 20 }}
+               contentContainerStyle={{ paddingBottom: 40 }}
                refreshing={refreshing}
                onRefresh={onRefresh}
                onEndReached={() => getPlants()}

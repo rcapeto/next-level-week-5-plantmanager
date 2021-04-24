@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity, SafeAreaView, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+
+import { useUser } from '../../context/UserContext';
 
 import colors from '../../styles/colors';
 import wateringImg from '../../assets/welcome.png';
 import fonts from '../../styles/fonts';
 
 export default function Welcome() {
+   const { userName } = useUser();
+
    const navigation = useNavigation();
 
    function handleStart() {
       navigation.navigate('UserIdentification');
    }
+
+   useEffect(() => {
+      if(userName) {
+         navigation.reset({
+            routes: [{ name: 'TabRoutes' }]
+         });
+      }
+   }, []);
 
    return(
       <SafeAreaView style={styles.container}>

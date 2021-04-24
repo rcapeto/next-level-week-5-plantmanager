@@ -5,6 +5,8 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Jost_400Regular, Jost_600SemiBold } from '@expo-google-fonts/jost';
 
+import { UserContextProvider } from './src/context/UserContext';
+
 import Routes from './src/routes';
 
 export default function App() {
@@ -17,8 +19,10 @@ export default function App() {
 
   return (
     <>
-      <StatusBar />
-      <Routes />
+      <UserContextProvider>
+        <StatusBar />
+        <Routes />
+      </UserContextProvider>
     </>
   );
 }

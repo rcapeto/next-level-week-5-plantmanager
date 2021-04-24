@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
    View, 
    Text, 
@@ -13,20 +13,41 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
+import { useUser } from '../../context/UserContext';
+import { ConfirmationProps } from '../../interface';
+import Button from '../../components/Button';
+
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import Button from '../../components/Button';
 
 export default function UserIdentification() {
    const [isFocused, setIsFocused] = useState<boolean>(false);
    const [name, setName] = useState<string>('');
    const navigation = useNavigation();
+   const { changeUserName } = useUser();
 
-   function handleConfirmation() {
+   async function handleConfirmation() {
       Keyboard.dismiss();
 
-      if(!name) return Alert.alert('PlantManager', 'Por favor preencha o seu nome! 😀');
-      navigation.navigate('Confirmation');
+      if(!name) return Alert.alert('PlantManager', 'Poxa... me diz como se chama 😢');
+
+      try {
+         await changeUserName(name);
+         
+         const params = {
+            title: 'Prontinho',
+            subtitle: 'Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
+            buttonTitle: 'Começar',
+            icon: 'smile',
+            nextScreen: 'TabRoutes'
+         } as ConfirmationProps;
+
+         navigation.navigate('Confirmation', params);
+
+      } catch(err) {
+         console.error(err);
+         Alert.alert('PlantManager', 'Não foi possível acessar seu nome...😕');
+      }
    }
 
    function handleInputBlur() {
