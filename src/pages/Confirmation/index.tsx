@@ -9,7 +9,7 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 const emojis = {
-   hug: '😜',
+   hug: '🤗',
    smile: '😀'
 }
 

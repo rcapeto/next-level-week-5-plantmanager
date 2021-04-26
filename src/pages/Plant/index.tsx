@@ -8,7 +8,6 @@ import {
    ScrollView, 
    Platform, 
    TouchableOpacity,
-   Modal
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { SvgFromUri } from 'react-native-svg';
@@ -81,6 +80,7 @@ export default function Plant() {
    return(
       <ScrollView 
          contentContainerStyle={styles.container}
+         showsVerticalScrollIndicator={false}
       >
          <View style={styles.plantInfo}>
             <SvgFromUri 

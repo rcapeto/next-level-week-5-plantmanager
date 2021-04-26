@@ -38,11 +38,14 @@ export interface UserContextData {
    changeUserName: (name: string) => Promise<void>;
    savePlant: (plant: Plants) => Promise<void>;
    getPlants: () => Promise<MyPlant[]>;
+   removePlant: (id: number) => Promise<void>;
+   logOut: () => Promise<void>;
 }
 
 export interface StoragePlantProps {
    [id: string]: {
-      data: Plants
+      data: Plants,
+      notificationId: string;
    }
 }
 
