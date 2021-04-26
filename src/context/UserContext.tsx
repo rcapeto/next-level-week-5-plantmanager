@@ -140,6 +140,7 @@ export function UserContextProvider({ children }: UserContextProps) {
 
    async function logOut() {
       await AsyncStorage.clear();
+      await Notifications.cancelAllScheduledNotificationsAsync();
       setUserName('');
    }
 
